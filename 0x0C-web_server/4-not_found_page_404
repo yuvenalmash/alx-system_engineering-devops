@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install nginx and start it
-apt-get -y install nginx
+apt -y install nginx
 
 # Firewall setting: Allow Nginx to serve on HTTP
 ufw allow 'Nginx HTTP'
@@ -19,4 +19,4 @@ sed -i '37i\rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 pe
 echo "Ceci n'est pas une page\n" >> /var/www/html/error_404.html
 sed -i '38i\error_page 404 /error_404.html;' /etc/nginx/sites-available/default
 
-service nginx start
+systemctl start nginx
