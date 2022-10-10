@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 # Run whoami command as another user passed as argument
-su "$1" -c 'whoami'
+su "$1" -s /bin/bash -c 'whoami'
