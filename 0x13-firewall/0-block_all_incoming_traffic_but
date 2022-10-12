@@ -1,8 +1,6 @@
 sudo apt install ufw
 sudo ufw status
 sudo ufw enable
-sudo ufw default deny outgoing
-sudo ufw default deny incoming
 sudo ufw allow 22
 sudo ufw allow 443
 sudo ufw allow 80
