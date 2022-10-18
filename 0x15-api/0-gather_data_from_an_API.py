@@ -9,8 +9,7 @@ if __name__ == "__main__":
     DONE_TASKS = 0
     ALL_TASKS = 0
     if len(sys.argv) > 1:
-        URL_FOR_USERS = 'https://jsonplaceholder.typicode.com/users/{0}'.\
-            format(sys.argv[1])
+        URL_FOR_USERS = 'https://jsonplaceholder.typicode.com/users/{0}'.format(sys.argv[1])
         URL_FOR_TODOS = 'https://jsonplaceholder.typicode.com/todos'
         r_for_users = requests.get(URL_FOR_USERS)
         r_for_todos = requests.get(URL_FOR_TODOS)
