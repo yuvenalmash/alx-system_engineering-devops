@@ -23,7 +23,8 @@ if __name__ == "__main__":
             if (todo.get('userId') == int(sys.argv[1]))\
                     and (todo.get('completed')):
                 DONE_TASKS += 1
-        print("Employee {} is done with tasks({}/{}):".format(name, DONE_TASKS, ALL_TASKS))
+        print("Employee {} is done with tasks({}/{}):".format(
+            name, DONE_TASKS, ALL_TASKS))
         for todo in todos:
             if (todo.get('userId') == int(sys.argv[1]))\
                     and (todo.get('completed')):
