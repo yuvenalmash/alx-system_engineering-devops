@@ -1,35 +1,30 @@
 #!/usr/bin/python3
-"""
-Return information for a given employee about his/her TODO list progress
-"""
+'''A script that gathers employee name completed
+tasks and total number of tasks from an API
+'''
 
+import re
 import requests
 import sys
 
-def main():
-    DONE_TASKS = 0
-    ALL_TASKS = 0
+REST_API = "https://jsonplaceholder.typicode.com"
 
-    URL_FOR_USERS = 'https://jsonplaceholder.typicode.com/users/{0}'.\
-        format(sys.argv[1])
-    URL_FOR_TODOS = 'https://jsonplaceholder.typicode.com/todos'
-    r_for_users = requests.get(URL_FOR_USERS)
-    r_for_todos = requests.get(URL_FOR_TODOS)
-
-    name = r_for_users.json().get('name')
-    todos = r_for_todos.json()
-    for todo in todos:
-        if todo.get('userId') == int(sys.argv[1]):
-            ALL_TASKS += 1
-        if (todo.get('userId') == int(sys.argv[1]))\
-                and (todo.get('completed')):
-            DONE_TASKS += 1
-    print("Employee {} is done with tasks({}/{}):".
-            format(name, DONE_TASKS, ALL_TASKS))
-    for todo in todos:
-        if (todo.get('userId') == int(sys.argv[1]))\
-                and (todo.get('completed')):
-            print("	 {}".format(todo.get('title')))
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        if re.fullmatch(r'\d+', sys.argv[1]):
+            id = int(sys.argv[1])
+            emp_req = requests.get('{}/users/{}'.format(REST_API, id)).json()
+            task_req = requests.get('{}/todos'.format(REST_API)).json()
+            emp_name = emp_req.get('name')
+            tasks = list(filter(lambda x: x.get('userId') == id, task_req))
+            completed_tasks = list(filter(lambda x: x.get('completed'), tasks))
+            print(
+                'Employee {} is done with tasks({}/{}):'.format(
+                    emp_name,
+                    len(completed_tasks),
+                    len(tasks)
+                )
+            )
+            if len(completed_tasks) > 0:
+                for task in completed_tasks:
+                    print('\t {}'.format(task.get('title')))
